@@ -4,6 +4,8 @@ import { createApp, provide, h } from 'vue';
 import { ApolloClients } from '@vue/apollo-composable';
 import App from './App.vue';
 import { client } from './apolloService';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const app = createApp({
   setup() {
