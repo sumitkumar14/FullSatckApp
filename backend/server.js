@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const { ApolloServer, gql } = require('apollo-server-express');
 
 // Sample data
@@ -11,7 +12,7 @@ const data = [
   { name: 'B-2', description: 'This is a description of B-2', parent: 'B' },
   { name: 'B-3', description: 'This is a description of B-3', parent: 'B' }
 ];
-
+const port = process.env.PORT || 3000;
 // GraphQL schema
 const typeDefs = gql`
   type Item {
@@ -66,6 +67,6 @@ const app = express();
 server.applyMiddleware({ app });
 
 // Start the server
-app.listen({ port: 4000 }, () =>
-  console.log(`Server ready at http://localhost:4000${server.graphqlPath}`)
+app.listen({ port: port }, () =>
+  console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`)
 );
