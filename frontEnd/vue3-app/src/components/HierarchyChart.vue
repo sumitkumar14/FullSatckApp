@@ -1,5 +1,9 @@
 <template>
-    <div ref="treeContainer"></div>
+    <div v-if="selectedNode" @click="closeSpecificNode()">
+      <p><strong>Name:</strong> {{ selectedNode.data.name }}</p>
+      <p><strong>Description:</strong> {{ selectedNode.data.description }}</p>
+    </div>
+    <div class="chart" ref="treeContainer"></div>
   </template>
   
   <script>
@@ -14,13 +18,29 @@
         required: true
       }
     },
+    data() {
+    return {
+      selectedNode: null
+    };
+  },
     mounted() {
       this.createTree();
     },
     methods: {
+        closeSpecificNode() {
+            debugger;
+            console.log( // Node data to toggle
+        this.$refs.treeContainer)
+      // Access the ref and call the method
+      if (this.$refs.treeContainer) {
+        const nodeData = this.selectedNode.data; // Node data to toggle
+        this.$refs.treeContainer[0].toggleChildren(nodeData);
+        this.$refs.treeContainer[0].update(nodeData);
+      }
+    },
       createTree() {
         const width = 600;
-        const height = 400;
+        const height = 500;
         const margin = { top: 20, right: 90, bottom: 30, left: 90 };
   
         const svg = d3.select(this.$refs.treeContainer)
@@ -54,18 +74,22 @@
             .attr('class', 'node')
             .attr('transform', d => `translate(${source.y0},${source.x0})`)
             .on('click', (event, d) => {
+              this.selectedNode = d;
               toggleChildren(d);
               update(d);
             });
   
-          nodeEnter.append('circle')
+          nodeEnter.append('rect')
             .attr('class', 'node')
-            .attr('r', 10)
-            .style('fill', d => d._children ? 'lightsteelblue' : '#fff');
+            .attr('width', 50)
+            .attr('height',  50)
+            .attr('y', d => d.children || d._children ? -25 : -25)
+            .style('fill', d => d._children ? '#0000' : '#0000');
   
           nodeEnter.append('text')
             .attr('dy', '.35em')
-            .attr('x', d => d.children || d._children ? -13 : 13)
+            .attr('x', d => d.children || d._children ? 20 : 20)
+            .attr('y', d => d.children || d._children ? 0 : 0)
             .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
             .text(d => d.data.name);
   
@@ -75,9 +99,8 @@
             .duration(200)
             .attr('transform', d => `translate(${d.y},${d.x})`);
   
-          nodeUpdate.select('circle.node')
-            .attr('r', 10)
-            .style('fill', d => d._children ? 'lightsteelblue' : '#fff')
+          nodeUpdate.select('rect.node')
+            .style('fill', d => d._children ? 'green' : 'lightblue')
             .attr('cursor', 'pointer');
   
           const nodeExit = node.exit().transition()
@@ -85,7 +108,7 @@
             .attr('transform', d => `translate(${source.y},${source.x})`)
             .remove();
   
-          nodeExit.select('circle')
+          nodeExit.select('rect')
             .attr('r', 1e-6);
   
           nodeExit.select('text')
@@ -145,7 +168,7 @@
             d.children = null;
           }
         }
-  
+
         update(root);
       }
     }
@@ -153,19 +176,19 @@
   </script>
   
   <style scoped>
-  .node circle {
-    fill: #fff;
-    stroke: steelblue;
+  .chart >>> .node rect {
+    fill: #0fa74e;
+    stroke: rgb(26, 113, 184);
     stroke-width: 3px;
   }
   
-  .node text {
+  .chart >>> .node text {
     font: 12px sans-serif;
   }
   
-  .link {
+  .chart >>> .link {
     fill: none;
     stroke: #ccc;
-    stroke-width: 18px;
+    stroke-width: 2px;
   }
   </style>
