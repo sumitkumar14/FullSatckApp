@@ -6,7 +6,7 @@ We used Jest for testing purpose. We used vue.js over other frameworks because o
 
 ## Project setup
 ```
-Move to backend Folder in terminal then run npm install to install dependencies once and then run command node server.js to start the backend
+Move to backend Folder in terminal then run npm i to install dependencies once and then run command node index.js to start the backend
 ```
 
 ### Compiles and hot-reloads for front end development
