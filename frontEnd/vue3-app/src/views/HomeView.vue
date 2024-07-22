@@ -31,6 +31,8 @@ export default {
   },
   methods: {
     cardClosed(){
+      this.$store.commit('update_node',null);
+      this.$refs.chart.createTree();
       this.$store.dispatch('fetchGraphData');
     },
     selectedNode(node) {

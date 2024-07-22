@@ -14,11 +14,6 @@ export default {
             required: true
         }
     },
-    data() {
-        return {
-            selectedNode: {'data':{'name':'A'}}
-        };
-    },
     mounted() {
         this.createTree();
     },
@@ -43,8 +38,6 @@ export default {
 
         let i = 0;
 
-        root.children.forEach(collapse); // Collapse all children at start.
-
         const update = (source) => {
             const treeData = treeLayout(root);
             const nodes = treeData.descendants();
@@ -59,9 +52,8 @@ export default {
                 .attr('class', 'node')
                 .attr('transform', d => `translate(${source.y0},${source.x0})`)
                 .on('click', (event, d) => {
-                    this.selectedNode = d;
+                    this.$store.commit('update_node',d);
                     this.$emit('selected-node', d.data);
-                    toggleChildren(d);
                     update(d);
                 });
 
@@ -86,7 +78,7 @@ export default {
 
             nodeUpdate.select('rect.node')
                 .attr('cursor', 'pointer')
-                .style('fill', d => this.selectedNode && d.data.name === this.selectedNode.data.name?'orange':'lightblue');
+                .style('fill', d => this.$store.state.selectedNode && d.data.name === this.$store.state.selectedNode.data.name?'orange':'lightblue');
 
             const nodeExit = node.exit().transition()
                 .duration(200)
@@ -135,24 +127,6 @@ export default {
                       ${d.y} ${d.x}`;
             }
         };
-
-        function toggleChildren(d) {
-            if (d.children) {
-                d._children = d.children;
-                // d.children = null;
-            } else {
-                d.children = d._children;
-                d._children = null;
-            }
-        }
-
-        function collapse(d) {
-            if (d.children) {
-                d._children = d.children;
-                d._children.forEach(collapse);
-                d.children = null;
-            }
-        }
 
         update(root);
     }

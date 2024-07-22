@@ -5,7 +5,8 @@ export default createStore({
   state: {
       graphData: null,
       loading: false,
-      error: null
+      error: null,
+      selectedNode:{'data':{'name':'A'}}
   },
   getters: {
     graphData: state => state.graphData,
@@ -18,6 +19,9 @@ export default createStore({
     },
     SET_LOADING(state, loading) {
       state.loading = loading;
+    },
+    update_node(state, payload) {
+      state.selectedNode = payload;
     },
     SET_ERROR(state, error) {
       state.error = error;
