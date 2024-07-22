@@ -16,30 +16,13 @@ export default {
     },
     data() {
         return {
-            selectedNode: null
+            selectedNode: {'data':{'name':'A'}}
         };
-    },
-    watch: {
-        selectedNode() {
-            this.updateHighlight();
-        }
     },
     mounted() {
         this.createTree();
     },
     methods: {
-        updateHighlight() {
-            d3.select(this.$refs.treeContainer).selectAll('rect')
-                .attr('fill', d => d === this.selectedNode ? 'black' : 'lightblue');
-        },
-    closeSpecificNode(evnt) {
-        debugger;
-        console.log(evnt);
-        // Access the ref and call the method
-        if (this.$refs.treeContainer) {
-            const nodeData = this.selectedNode.data; // Node data to toggle
-        }
-    },
     createTree() {
         const width = 600;
         const height = 500;
@@ -86,8 +69,7 @@ export default {
                 .attr('class', 'node')
                 .attr('width', 50)
                 .attr('height', 50)
-                .attr('y', d => d.children || d._children ? -25 : -25)
-                .style('fill', d => d._children ? '#0000' : '#0000');
+                .attr('y', d => d.children || d._children ? -25 : -25);
 
             nodeEnter.append('text')
                 .attr('dy', '.35em')
@@ -100,11 +82,11 @@ export default {
 
             nodeUpdate.transition()
                 .duration(200)
-                .attr('transform', d => `translate(${d.y},${d.x})`);
+                .attr('transform', d => `translate(${d.y},${d.x})`)
 
             nodeUpdate.select('rect.node')
-                .style('fill', d => d._children ? 'green' : 'lightblue')
-                .attr('cursor', 'pointer');
+                .attr('cursor', 'pointer')
+                .style('fill', d => this.selectedNode && d.data.name === this.selectedNode.data.name?'orange':'lightblue');
 
             const nodeExit = node.exit().transition()
                 .duration(200)
@@ -112,7 +94,7 @@ export default {
                 .remove();
 
             nodeExit.select('rect')
-                .attr('r', 1e-6);
+                .attr('r', 1e-6)
 
             nodeExit.select('text')
                 .style('fill-opacity', 1e-6);
@@ -157,7 +139,7 @@ export default {
         function toggleChildren(d) {
             if (d.children) {
                 d._children = d.children;
-                d.children = null;
+                // d.children = null;
             } else {
                 d.children = d._children;
                 d._children = null;
