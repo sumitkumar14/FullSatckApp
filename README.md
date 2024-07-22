@@ -1,7 +1,5 @@
 # FullSatckApp
 
-# vue3-exress-app
-
 ## About
 Application is built using node.js - v20.10.0, express.js, neo4j graph db, d3.js and vue.js3 framework.
 We used vuex for state management, used Jest for unit testing and cypress for end to end testing. Application is about showing hierarchy data by fetching result from express server using graph query to modify server data in required hierarchy format in front end and show it using d3.js chart, also you can get the details of data by selecting it.
