@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         updateNodeColor(){
-            d3.select(this.$refs.treeContainer).selectAll('rect.node').style('fill', d =>'white');
+            d3.select(this.$refs.treeContainer).selectAll('rect.node').style('stroke', d =>'lightgrey');
         },
     createTree() {
         const width = 600;
@@ -87,7 +87,8 @@ export default {
 
             nodeUpdate.select('rect.node')
                 .attr('cursor', 'pointer')
-                .style('fill', d => this.selectedNode && d.data.name === this.selectedNode.data.name?'orange':'white');
+                .style('fill', d => 'white')
+                .style('stroke', d => this.selectedNode && d.data.name === this.selectedNode.data.name?'black':'lightgrey');
 
             const nodeExit = node.exit().transition()
                 .duration(200)
@@ -143,7 +144,7 @@ export default {
 
 <style scoped>
 .chart>>>.node rect {
-    stroke: rgb(36, 41, 44);
+    stroke: grey;
     stroke-width: 2px;
 }
 

@@ -2,13 +2,13 @@
     <div v-if="visible" class="card position-relative">
       <button
         type="button"
-        class="btn-close position-absolute top-0 end-0 m-2"
+        class="btn-close position-absolute top-0 end-0 m-n4"
         aria-label="Close"
         @click="closeCard"
       ></button>
       <div class="card-body">
-        <h5 class="card-title">{{ title }}</h5>
-        <p class="card-text">{{ text }}</p>
+        <h5 class="text-color card-title">{{ title }}</h5>
+        <p class="text-color card-text">{{ text }}</p>
       </div>
     </div>
   </template>
@@ -40,5 +40,8 @@
   </script>
   
   <style scoped>
-  /* Additional styling if needed */
+  .text-color{
+    color:green;
+  }
+
   </style>
