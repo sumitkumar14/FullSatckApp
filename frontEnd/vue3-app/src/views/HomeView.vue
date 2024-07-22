@@ -27,14 +27,17 @@ export default {
 
   },
   computed: {
-    ...mapGetters(['graphData', 'loading', 'error'])
+    ...mapGetters(['graphData', 'loading', 'error']),
+    selectedNod(){
+      return this.$store.state.selectedNode.data;
+    }
   },
   methods: {
     cardClosed(){
-      this.$store.commit('update_node',null);
-      this.$refs.chart.createTree();
-      this.$store.dispatch('fetchGraphData');
+      this.$refs.chart.selectedNode = null;
+      this.$refs.chart.updateNodeColor();
     },
+
     selectedNode(node) {
      this.title = node.name;
      this.description = node.description;

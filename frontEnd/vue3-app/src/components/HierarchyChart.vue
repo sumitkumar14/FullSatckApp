@@ -14,10 +14,18 @@ export default {
             required: true
         }
     },
+    data(){
+        return {
+            selectedNode:{'data':{'name':'A'}}
+        }
+    },
     mounted() {
         this.createTree();
     },
     methods: {
+        updateNodeColor(){
+            d3.select(this.$refs.treeContainer).selectAll('rect.node').style('fill', d =>'white');
+        },
     createTree() {
         const width = 600;
         const height = 500;
@@ -52,7 +60,7 @@ export default {
                 .attr('class', 'node')
                 .attr('transform', d => `translate(${source.y0},${source.x0})`)
                 .on('click', (event, d) => {
-                    this.$store.commit('update_node',d);
+                    this.selectedNode = d;
                     this.$emit('selected-node', d.data);
                     update(d);
                 });
@@ -61,11 +69,12 @@ export default {
                 .attr('class', 'node')
                 .attr('width', 50)
                 .attr('height', 50)
-                .attr('y', d => d.children || d._children ? -25 : -25);
+                .attr('y', d => d.children || d._children ? -25 : -25)
+                .attr('x', d => d.children || d._children ? -35 : -35);
 
             nodeEnter.append('text')
                 .attr('dy', '.35em')
-                .attr('x', d => d.children || d._children ? 20 : 20)
+                .attr('x', d => d.children || d._children ? -10 : -20)
                 .attr('y', d => d.children || d._children ? 0 : 0)
                 .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
                 .text(d => d.data.name);
@@ -78,15 +87,12 @@ export default {
 
             nodeUpdate.select('rect.node')
                 .attr('cursor', 'pointer')
-                .style('fill', d => this.$store.state.selectedNode && d.data.name === this.$store.state.selectedNode.data.name?'orange':'white');
+                .style('fill', d => this.selectedNode && d.data.name === this.selectedNode.data.name?'orange':'white');
 
             const nodeExit = node.exit().transition()
                 .duration(200)
                 .attr('transform', d => `translate(${source.y},${source.x})`)
                 .remove();
-
-            nodeExit.select('rect')
-                .attr('r', 1e-6)
 
             nodeExit.select('text')
                 .style('fill-opacity', 1e-6);
@@ -122,9 +128,10 @@ export default {
 
             function diagonal(s, d) {
                 return `M ${s.y} ${s.x}
-                    C ${(s.y + d.y) / 2} ${s.x},
-                      ${(s.y + d.y) / 2} ${d.x},
-                      ${d.y} ${d.x}`;
+                H${(s.y+d.y)/2} 
+                V${d.x}
+                H${d.y}
+                    `;
             }
         };
 
