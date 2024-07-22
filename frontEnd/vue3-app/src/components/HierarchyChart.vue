@@ -78,7 +78,7 @@ export default {
 
             nodeUpdate.select('rect.node')
                 .attr('cursor', 'pointer')
-                .style('fill', d => this.$store.state.selectedNode && d.data.name === this.$store.state.selectedNode.data.name?'orange':'lightblue');
+                .style('fill', d => this.$store.state.selectedNode && d.data.name === this.$store.state.selectedNode.data.name?'orange':'white');
 
             const nodeExit = node.exit().transition()
                 .duration(200)
@@ -136,7 +136,6 @@ export default {
 
 <style scoped>
 .chart>>>.node rect {
-    fill: #0fa74e;
     stroke: rgb(36, 41, 44);
     stroke-width: 2px;
 }
