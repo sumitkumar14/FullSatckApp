@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
 import actions from './actions';
+import getters from  './getters';
+import  mutations from './mutations';
 
 export default createStore({
   state: {
@@ -7,21 +9,7 @@ export default createStore({
       loading: false,
       error: null,
   },
-  getters: {
-    graphData: state => state.graphData,
-    loading: state => state.loading,
-    error: state => state.error
-  },
-  mutations: {
-    SET_GRAPH_DATA(state, data) {
-      state.graphData = data;
-    },
-    SET_LOADING(state, loading) {
-      state.loading = loading;
-    },
-    SET_ERROR(state, error) {
-      state.error = error;
-    }
-  },
+  getters,
+  mutations,
   actions,
 })
