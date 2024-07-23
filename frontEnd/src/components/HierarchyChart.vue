@@ -148,10 +148,6 @@ export default {
     stroke-width: 2px;
 }
 
-.chart>>>.node text {
-    font: 12px sans-serif;
-}
-
 .chart>>>.link {
     fill: none;
     stroke: #ccc;
