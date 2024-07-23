@@ -99,7 +99,7 @@ export default {
                 .style('fill-opacity', 1e-6);
 
             const link = svg.selectAll('path.link')
-                .data(links, d => d.id);
+            .data(links, d => d.id);
 
             const linkEnter = link.enter().insert('path', 'g')
                 .attr('class', 'link')
@@ -131,8 +131,7 @@ export default {
                 return `M ${s.y} ${s.x}
                 H${(s.y+d.y)/2} 
                 V${d.x}
-                H${d.y}
-                    `;
+                H${d.y}`;
             }
         };
 
@@ -143,11 +142,6 @@ export default {
 </script>
 
 <style scoped>
-.chart>>>.node rect {
-    stroke: grey;
-    stroke-width: 2px;
-}
-
 .chart>>>.link {
     fill: none;
     stroke: #ccc;
