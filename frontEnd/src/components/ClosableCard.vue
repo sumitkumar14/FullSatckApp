@@ -29,7 +29,7 @@ export default {
   methods: {
     closeCard() {
       this.visible = false;
-      this.$emit('close-card', this.visible);
+      this.$emit('close-card');
     }
   }
 };
