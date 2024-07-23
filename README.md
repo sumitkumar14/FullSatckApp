@@ -11,27 +11,27 @@ Move to backend Folder in terminal then run npm i to install dependencies once a
 
 ### Compiles and hot-reloads for front end development
 ```
-run npm i to install dependencies once and do npm run serve from folder frontend\vue3-app to see the app running on http://localhost:8080/
+run npm i to install dependencies once and do npm run serve from folder frontend to see the app running on http://localhost:8080/
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build from frontend\vue3-app folder 
+npm run build from frontend folder 
 ```
 
 ### Run your unit tests
 ```
-npm run test:unit from frontend\vue3-app folder
+npm run test:unit from frontend folder
 ```
 
 ### Run your end-to-end tests
 ```
-npm run test:e2e from frontend\vue3-app folder
+npm run test:e2e from frontend folder
 ```
 
 ### Lints and fixes files
 ```
-npm run lint from frontend\vue3-app folder
+npm run lint from frontend folder
 ```
 
 ### Customize configuration
